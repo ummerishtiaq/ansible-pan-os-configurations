@@ -1,0 +1,11 @@
+[panorama]
+PROD-PANAROMA ansible_host=prod-panroma.example.com
+
+[panos_firewalls]
+PROD-PAN-FW-A ansible_host=10.10.0.1
+PROD-PAN-FW-B ansible_host=10.20.0.1
+PROD-PAN-FW-C ansible_host=10.30.0.1
+
+[panos_devices:children]
+panos_firewalls
+panorama
