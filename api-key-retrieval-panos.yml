@@ -1,0 +1,33 @@
+--- 
+- name: API Key Retrieval using PAN-OS API Module
+  hosts: panorama
+  connection: local
+  gather_facts: false
+  ignore_errors: true
+ 
+  collections:
+    - paloaltonetworks.panos
+
+  vars_prompt:
+    - name: username
+      prompt: Username
+      private: no
+
+    - name: password
+      prompt: Password
+      private: yes
+  
+  vars:
+    provider:
+      ip_address: '{{ ansible_host }}'
+      username: '{{ username }}' 
+      password: '{{ password }}'
+    
+  tasks:
+    - name: retrieve api_key using panos-api module
+      panos_api_key:
+        provider: '{{ provider }}'
+      register: auth
+
+    - debug:
+        msg: '{{ auth.api_key }}'
