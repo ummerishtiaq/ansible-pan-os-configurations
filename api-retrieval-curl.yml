@@ -1,0 +1,30 @@
+--- 
+- name: API Key Retrieval using Curl
+  hosts: panorama
+  connection: local
+  gather_facts: false
+  ignore_errors: true
+ 
+  collections:
+    - paloaltonetworks.panos
+    
+  vars_prompt:
+    - name: username
+      prompt: Username
+      private: no
+
+    - name: password
+      prompt: Password
+      private: yes
+      
+  tasks:
+    - name: Retrieving API Key using Curl
+      shell:
+        cmd: "curl -k -X GET 'https://'{{ ansible_host }}'/api/?type=keygen&user='{{ username }}'&password='{{ password }}'' | grep -oP '(?<=<key>).*(?=</key)'"
+      register: key
+      no_log: True
+      check_mode: no   
+
+    - name: Display Key
+      debug: 
+        var: key.stdout
