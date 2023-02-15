@@ -30,7 +30,7 @@ policy. These scripts should be seen as community supported.
 ## Pre-Requisites
 PAN-OS Ansible Collection should be installed from Ansible Galaxy, and following files should be configured prior executing the playbooks (except for API Key Retrievals),
 - [Ansible Configuration File](ansible.cfg)
-- [Host File](hosts)
+- [Hosts File](hosts)
 - [Variables](group_vars/panos_devices/vars)
 - [Vault](group_vars/panos_devices/vault)
 
