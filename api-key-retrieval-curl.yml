@@ -1,3 +1,7 @@
+# Execute below to run this playbook
+# ansible-playbook api-key-retrieval-curl.yml
+
+
 --- 
 - name: API Key Retrieval using Curl
   hosts: panorama
