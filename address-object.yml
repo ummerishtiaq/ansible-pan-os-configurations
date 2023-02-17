@@ -40,6 +40,7 @@
         value: 'www.example.com'
         description: 'FQDN Based Object'
         device_group: 'shared'
+        
     - name: Update an existing object
       panos_address_object:
         provider: '{{ pan_provider }}'
@@ -47,6 +48,7 @@
         value: '9.9.9.10/32'
         state: 'replaced'
         device_group: 'shared'  
+        
     - name: Delete an existing object
       panos_address_object:
         provider: '{{ pan_provider }}'
