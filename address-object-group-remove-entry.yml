@@ -1,0 +1,30 @@
+# Execute below command to run this playbook
+# ansible-playbook address-object-group-remove-entry.yml --diff
+
+
+--- 
+- name: Remove single entry from address object group
+  hosts: panorama
+  connection: local
+  gather_facts: false
+ 
+  collections:
+    - paloaltonetworks.panos    
+
+  tasks:
+    - name: Get all members of the object group 
+      panos_address_group:
+        provider: '{{ pan_provider }}'
+        state: 'gathered'
+        name: 'dns-object-group'
+      register: output
+      
+    - debug:
+        var: output.gathered.static_value
+        
+    - name: Remove only wanted members
+      panos_address_group:
+        provider: '{{ pan_provider }}'
+        state: 'replaced'
+        name: 'dns-object-group'
+        static_value: "{{ output.gathered.static_value | reject('search','H-1.1.1.1-32') }}"
