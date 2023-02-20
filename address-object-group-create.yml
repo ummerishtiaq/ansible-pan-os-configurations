@@ -1,0 +1,32 @@
+--- 
+- name: Create an address object group in Panorama 
+  hosts: panorama
+  connection: local
+  gather_facts: false
+#  ignore_errors: true
+ 
+  collections:
+    - paloaltonetworks.panos
+
+  tasks:
+    - name: Create DNS Object-1
+      panos_address_object:
+        provider: '{{ pan_provider }}'
+        name: 'H-8.8.8.8-32'
+        value: '8.8.8.8/32'
+        description: 'DNS Server-1'
+        device_group: 'shared'        
+
+    - name: Create DNS Object-2
+      panos_address_object:
+        provider: '{{ pan_provider }}'
+        name: 'H-8.8.4.4-32'
+        value: '8.8.4.4/32'
+        description: 'DNS Server-2'
+        device_group: 'shared'
+
+    - name: Create object group
+      panos_address_group:
+        provider: '{{ pan_provider }}'
+        name: 'dns-object-group'
+        static_value: ['H-8.8.8.8-32', 'H-8.8.4.4-32']
