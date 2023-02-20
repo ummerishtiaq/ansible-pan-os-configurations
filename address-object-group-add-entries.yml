@@ -1,0 +1,28 @@
+# Execute below command to run this playbook
+# ansible-playbook address-object-group-add-entries.yml --diff
+
+--- 
+- name: Add entry in existing address object group in Panorama 
+  hosts: panorama
+  connection: local
+  gather_facts: false
+#  ignore_errors: true
+ 
+  collections:
+    - paloaltonetworks.panos
+
+  tasks:
+    - name: Create DNS Object-3
+      panos_address_object:
+        provider: '{{ pan_provider }}'
+        name: 'H-1.1.1.1-32'
+        value: '1.1.1.1/32'
+        description: 'DNS Server-3'
+        device_group: 'shared'        
+
+    - name: Add entry in DNS object group
+      panos_address_group:
+	    state: 'merged'
+        provider: '{{ provider }}'
+        name: 'dns-object-group'
+        static_value: ['H-1.1.1.1-32']
