@@ -1,3 +1,6 @@
+# Execute below command to run this playbook
+# ansible-playbook address-object-group-create.yml --diff
+
 --- 
 - name: Create an address object group in Panorama 
   hosts: panorama
