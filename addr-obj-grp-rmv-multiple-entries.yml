@@ -1,0 +1,32 @@
+# Execute below command to run this playbook
+# ansible-playbook addr-obj-grp-rmv-multiple-entries.yml --diff
+
+
+--- 
+- name: Remove multiple entries from address object group
+  hosts: panorama
+  connection: local
+  gather_facts: false
+  
+    collections:
+    - paloaltonetworks.panos
+
+  vars:
+    list1:
+      - H-8.8.8.8-32
+      - H-1.1.1.1-32      
+
+  tasks:
+    - name: Gathering IPs in DNS Object Group
+      panos_address_group:
+        state: 'gathered'
+        provider: '{{ provider }}'
+        name: 'dns-object-group'
+      register: output_dns_object_group
+      
+    - name: Removing IP addresses from DNS Object Group
+      panos_address_group:
+        state: 'replaced'
+        provider: '{{ provider }}'
+        name: 'dns-object-group'
+        static_value: "{{ output_dns_object_group.gathered.static_value | difference(list1) }}"  
