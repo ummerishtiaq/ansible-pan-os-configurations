@@ -78,6 +78,15 @@ Below playbooks will allow retrieval of the api_key for a given username/passwor
 Below playbook includes multiple tasks, creating address-object (having different types), updating existing address-object and deleting an address-object
 - [Address Object Tasks](address-object.yml)
 
+### Create, Update and Delete Address Object Group
+By using below playbooks, we can manipulate the entries in our address object groups
+- [Create Address Object Group](address-object-group-create.yml)
+- [Gather entries of existing Address Object Group](address-object-group-gather.yml)
+- [Delete existing Address Object Group](address-object-group-delete.yml)
+- [Add entries in existing Address Object Group](address-object-group-add-entries.yml)
+- [Remove single entry from existing Address Object Group](address-object-group-remove-entry.yml)
+- [Remove multiple entries from existing Address Object Group](addr-obj-grp-rmv-multiple-entries.yml)
+
 more to be added soon ...
 
 ## Feedback & Questions
